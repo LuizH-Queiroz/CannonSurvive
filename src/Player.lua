@@ -52,11 +52,31 @@ function Player:update(dt)
         end
     end
     -------------
-
+    
 
     -- Player movement
+    -- Player can only partially move out of window bounds
     self.x = self.x + self.xVelocity * dt
+    if self.x < 0 then
+
+        self.x = 0
+        self.xVelocity = 0
+    elseif self.x > SCREEN_WIDTH then
+        
+        self.x = SCREEN_WIDTH
+        self.xVelocity = 0
+    end
+
     self.y = self.y + self.yVelocity * dt
+    if self.y < 0 then
+        
+        self.y = 0
+        self.yVelocity = 0
+    elseif self.y > SCREEN_HEIGHT then
+
+        self.y = SCREEN_HEIGHT
+        self.yVelocity = 0
+    end
     -------------
 
 
