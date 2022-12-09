@@ -5,6 +5,7 @@ require 'src/states/game/BaseState'
 require 'src/states/game/PlayState'
 
 require 'src/Player'
+require 'src/Projectile'
 require 'src/StateMachine'
 
 
