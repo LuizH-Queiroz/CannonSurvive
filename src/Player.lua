@@ -4,6 +4,8 @@ Player = Class{}
 PLAYER_VERTICAL_SPEED = 350
 PLAYER_HORIZONTAL_SPEED = 250
 
+NEW_PROJECTILE_TIME = 0.6 -- Time in seconds
+
 
 function Player:init()
 
@@ -14,6 +16,9 @@ function Player:init()
 
     self.xVelocity = 0
     self.yVelocity = 0
+
+    self.projectiles = {}
+    self.newProjectileTimer = 0
 end
 
 
@@ -82,23 +87,65 @@ function Player:update(dt)
 
     -- calculating the rectangle rotation
     local mouseX, mouseY = love.mouse.getPosition()
-    mouseX = mouseX - self.x -- difference between Mouse X and Circle X
-    mouseY = mouseY - self.y -- difference between Mouse Y and Circle Y
+    local diff_X = mouseX - self.x -- difference between Mouse X and Circle X
+    local diff_Y = mouseY - self.y -- difference between Mouse Y and Circle Y
 
-    if mouseX > 0 and mouseY > 0 then
-        self.mouseFollowRotation = math.abs(math.atan(mouseY/mouseX)) - math.pi/2
-    elseif mouseX < 0 and mouseY > 0 then
-        self.mouseFollowRotation = -math.abs(math.atan(mouseY/mouseX)) + math.pi/2
-    elseif mouseX < 0 and mouseY < 0 then
-        self.mouseFollowRotation = math.abs(math.atan(mouseY/mouseX)) + math.pi/2
-    elseif mouseX > 0 and mouseY < 0 then
-        self.mouseFollowRotation = -math.abs(math.atan(mouseY/mouseX)) - math.pi/2
+    if diff_X > 0 and diff_Y > 0 then
+        self.mouseFollowRotation = math.abs(math.atan(diff_Y/diff_X)) - math.pi/2
+    elseif diff_X < 0 and diff_Y > 0 then
+        self.mouseFollowRotation = -math.abs(math.atan(diff_Y/diff_X)) + math.pi/2
+    elseif diff_X < 0 and diff_Y < 0 then
+        self.mouseFollowRotation = math.abs(math.atan(diff_Y/diff_X)) + math.pi/2
+    elseif diff_X > 0 and diff_Y < 0 then
+        self.mouseFollowRotation = -math.abs(math.atan(diff_Y/diff_X)) - math.pi/2
     end
     -------------
+
+
+
+    -- Projectiles creation, update and removal
+
+    -- Creating a projectile, if 1s has passed since last projectile
+    local toRemove = {} -- Projectiles (indexes) to be removed
+    local removed = 0 -- Number of removed projectiles
+
+    self.newProjectileTimer = self.newProjectileTimer + dt
+    if self.newProjectileTimer >= NEW_PROJECTILE_TIME then
+
+        local hypot = math.sqrt(diff_X*diff_X + diff_Y*diff_Y)
+        table.insert(self.projectiles, Projectile(
+            self.x,
+            self.y,
+            400 * (math.abs(diff_X/hypot) * (diff_X > 0 and 1 or -1)),
+            400 * (math.abs(diff_Y/hypot) * (diff_Y > 0 and 1 or -1)),
+            12
+        ))
+
+        self.newProjectileTimer = 0
+    end
+
+    -- Update projectiles
+    for i, projectile in pairs(self.projectiles) do
+
+        projectile:update(dt)
+        if projectile.remove then
+            table.insert(toRemove, i)
+        end
+    end
+
+    -- Remove projectiles
+    for i, index in pairs(toRemove) do
+        table.remove(self.projectiles, index - removed)
+        removed = removed + 1
+    end
 end
 
 
 function Player:render()
+
+    for i, projectile in pairs(self.projectiles) do
+        projectile:render()
+    end
 
     -- 
     love.graphics.setColor(0, 0, 0, 1)
