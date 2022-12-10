@@ -22,6 +22,8 @@ function love.load()
         vsync = true
     })
 
+    math.randomseed(os.time())
+
 
     gStateMachine = StateMachine {
         ['play'] = function() return PlayState() end
