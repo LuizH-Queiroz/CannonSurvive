@@ -114,10 +114,10 @@ function Player:update(dt)
 
         local hypot = math.sqrt(diff_X*diff_X + diff_Y*diff_Y)
         table.insert(self.projectiles, Projectile(
-            self.x,
-            self.y,
-            400 * (math.abs(diff_X/hypot) * (diff_X > 0 and 1 or -1)),
-            400 * (math.abs(diff_Y/hypot) * (diff_Y > 0 and 1 or -1)),
+            self.x + 20 * (diff_X/hypot),
+            self.y + 20 * (diff_Y/hypot),
+            400 * diff_X/hypot,
+            400 * diff_Y/hypot,
             12
         ))
 
