@@ -1,8 +1,8 @@
 Player = Class{}
 
 
-PLAYER_VERTICAL_SPEED = 350
-PLAYER_HORIZONTAL_SPEED = 250
+PLAYER_VERTICAL_ACCELERATION = 350
+PLAYER_HORIZONTAL_ACCELERATION = 250
 
 PLAYER_PROJECTILE_VELOCITY = 750
 
@@ -27,36 +27,22 @@ end
 function Player:update(dt)
 
     -- Player yVelocity and xVelocity
+    -- Acceleration must double if actual velocity has opposite sign
     if love.keyboard.isDown('w') then
-        self.yVelocity = self.yVelocity - PLAYER_VERTICAL_SPEED * dt
-        
-        if self.yVelocity > 0 then
-            self.yVelocity = self.yVelocity - PLAYER_VERTICAL_SPEED * dt
-        end
+        self.yVelocity = self.yVelocity - PLAYER_VERTICAL_ACCELERATION * dt * (self.yVelocity > 0 and 2 or 1)
     end
     
     if love.keyboard.isDown('s') then
-        self.yVelocity = self.yVelocity + PLAYER_VERTICAL_SPEED * dt
-
-        if self.yVelocity < 0 then
-            self.yVelocity = self.yVelocity + PLAYER_VERTICAL_SPEED * dt
-        end
+        self.yVelocity = self.yVelocity + PLAYER_VERTICAL_ACCELERATION * dt * (self.yVelocity < 0 and 2 or 1)
     end
 
 
     if love.keyboard.isDown('a') then
-        self.xVelocity = self.xVelocity - PLAYER_HORIZONTAL_SPEED * dt
-
-        if self.xVelocity > 0 then
-            self.xVelocity = self.xVelocity - PLAYER_HORIZONTAL_SPEED * dt
-        end
+        self.xVelocity = self.xVelocity - PLAYER_HORIZONTAL_ACCELERATION * dt * (self.xVelocity > 0 and 2 or 1)
     end
-    if love.keyboard.isDown('d') then
-        self.xVelocity = self.xVelocity + PLAYER_HORIZONTAL_SPEED * dt
 
-        if self.xVelocity < 0 then
-            self.xVelocity = self.xVelocity + PLAYER_HORIZONTAL_SPEED * dt
-        end
+    if love.keyboard.isDown('d') then
+        self.xVelocity = self.xVelocity + PLAYER_HORIZONTAL_ACCELERATION * dt * (self.xVelocity < 0 and 2 or 1)
     end
     -------------
     
