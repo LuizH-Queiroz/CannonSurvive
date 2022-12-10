@@ -160,3 +160,31 @@ function Player:render()
     love.graphics.setColor(0, 1, 1, 1)
     love.graphics.circle('fill', self.x, self.y, self.radius)
 end
+
+
+-- Check collision between Player and an enemy (a circle and a rectangle)
+-- Based on: https://www.jeffreythompson.org/collision-detection/circle-rect.php
+function Player:collides(enemy)
+
+    local testX, testY = self.x, self.y -- enemy (rectangle) closest point, actually initialized
+                                        -- with the Player position
+
+    if self.x < enemy.x then
+        testX = enemy.x
+    elseif self.x > enemy.x + enemy.width then
+        testX = enemy.x + enemy.width
+    end
+
+    if self.y < enemy.y then
+        testY = enemy.y
+    elseif self.y > enemy.y + enemy.height then
+        testY = enemy.y + enemy.height
+    end
+
+
+    local distX = self.x - testX
+    local distY = self.y - testY
+    local distance = math.sqrt(distX*distX + distY*distY)
+
+    return distance <= self.radius - 2
+end
