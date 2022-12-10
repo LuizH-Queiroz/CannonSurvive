@@ -4,6 +4,8 @@ Player = Class{}
 PLAYER_VERTICAL_SPEED = 350
 PLAYER_HORIZONTAL_SPEED = 250
 
+PLAYER_PROJECTILE_VELOCITY = 750
+
 NEW_PROJECTILE_TIME = 0.6 -- Time in seconds
 
 
@@ -116,8 +118,8 @@ function Player:update(dt)
         table.insert(self.projectiles, Projectile(
             self.x + 20 * (diff_X/hypot),
             self.y + 20 * (diff_Y/hypot),
-            400 * diff_X/hypot,
-            400 * diff_Y/hypot,
+            PLAYER_PROJECTILE_VELOCITY * diff_X/hypot,
+            PLAYER_PROJECTILE_VELOCITY * diff_Y/hypot,
             12
         ))
 
