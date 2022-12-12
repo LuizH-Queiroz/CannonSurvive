@@ -1,12 +1,16 @@
 -- Including libraries
 Class = require 'libs/class'
 
-require 'src/states/game/BaseState'
-require 'src/states/game/PlayState'
-
 require 'src/Player'
 require 'src/Projectile'
 require 'src/StateMachine'
+
+require 'src/states/game/BaseState'
+require 'src/states/game/PlayState'
+
+require 'src/states/enemies/follower/Follower'
+require 'src/states/enemies/follower/FollowerIdleState'
+require 'src/states/enemies/follower/FollowerFollowState'
 
 
 -- Constants
