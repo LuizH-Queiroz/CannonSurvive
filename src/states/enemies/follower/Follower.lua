@@ -37,13 +37,13 @@ function Follower:update(dt)
 
 
     -- Updating color (RGB)
-    self.color.r = self.color.r + 0.001
+    self.color.r = self.color.r + 0.06 * dt
     if self.color.r > 1 then self.color.r = 0 end
 
-    self.color.g = self.color.g + 0.001
+    self.color.g = self.color.g + 0.06 * dt
     if self.color.g > 1 then self.color.g = 0 end
 
-    self.color.b = self.color.b + 0.001
+    self.color.b = self.color.b + 0.06 * dt
     if self.color.b > 1 then self.color.b = 0 end
 end
 

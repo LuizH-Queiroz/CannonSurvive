@@ -19,14 +19,14 @@ function PlayState:update(dt)
 
 
     -- Enemies handling:
-    -- -> Spawn
+    -- -> Spawn/Instantiate
     -- -> Update
     -- -> Removal (TODO)
     self.enemySpawnTime = self.enemySpawnTime - dt
     if self.enemySpawnTime <= 0 then
         
         InstantiateNewEnemy(self.enemies)
-        self.enemySpawnTime = math.random(1, 3)
+        self.enemySpawnTime = math.random(5, 8)
     end
 
     for i, enemy in pairs(self.enemies) do
