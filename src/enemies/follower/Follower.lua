@@ -51,6 +51,7 @@ end
 function Follower:render()
 
     love.graphics.push()
+
     love.graphics.translate(self.x + self.width/2, self.y + self.height/2)
     love.graphics.rotate(self.rotation)
 

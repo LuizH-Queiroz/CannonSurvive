@@ -24,8 +24,8 @@ function FollowerFollowState:update(dt)
     self.follower.y = self.follower.y + self.yVelocity * dt
 
     -- Only one axis needs to be looked at
-    if (self.xVelocity < 0 and self.follower.x < self.destination_X)
-    or (self.xVelocity > 0 and self.follower.x > self.destination_X) then
+    if (self.xVelocity < 0 and self.follower.x <= self.destination_X)
+    or (self.xVelocity > 0 and self.follower.x >= self.destination_X) then
         
         self.follower.x = self.destination_X
         self.follower.y = self.destination_Y

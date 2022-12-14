@@ -5,9 +5,9 @@ PlayState = Class{__includes = BaseState}
 function PlayState:init()
     gPlayer = Player()
 
-    self.enemies = {
-        Follower()
-    }
+    self.enemies = {}
+    InstantiateNewEnemy(self.enemies)
+
     self.enemySpawnTime = math.random(5, 8)
 end
 
@@ -47,11 +47,16 @@ function PlayState:render()
 end
 
 
+---------------------------------------------
+---------------------------------------------
+---------------------------------------------
+
 
 function InstantiateNewEnemy(enemiesTable)
 
     local enemies = {
-        [1] = function() return Follower() end
+        [1] = function() return Follower() end,
+        -- [2] = function() return Bomber() end
     }
 
     table.insert(enemiesTable, enemies[math.random(1, #enemies)]())
