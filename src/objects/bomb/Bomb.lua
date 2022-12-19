@@ -5,7 +5,7 @@ BOMB_RADIUS = 15
 EXPLOSION_RADIUS = 8 * BOMB_RADIUS
 EXPLOSION_SPEED = 150
 
-BOMB_ON_HOLD_TIME = 3 -- Time to wait before countdown
+BOMB_ON_HOLD_TIME = 2 -- Time to wait before countdown
 
 
 function Bomb:init(x, y)

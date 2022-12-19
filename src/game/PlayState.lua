@@ -38,12 +38,13 @@ end
 
 
 function PlayState:render()
-    gPlayer:render()
 
     for i, enemy in pairs(self.enemies) do
     
         enemy:render()
     end
+
+    gPlayer:render()
 end
 
 
@@ -55,8 +56,8 @@ end
 function InstantiateNewEnemy(enemiesTable)
 
     local enemies = {
-        [1] = function() return Follower() end,
-        -- [2] = function() return Bomber() end
+        -- function() return Follower() end,
+        function() return Bomber() end
     }
 
     table.insert(enemiesTable, enemies[math.random(1, #enemies)]())

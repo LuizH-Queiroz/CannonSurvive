@@ -37,6 +37,7 @@ function love.load()
         resizable = false,
         vsync = true
     })
+    love.window.setTitle('CannonSurvive')
 
     math.randomseed(os.time())
 

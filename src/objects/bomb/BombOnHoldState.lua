@@ -13,7 +13,10 @@ function BombOnHoldState:update(dt)
     self.timer = self.timer - dt
     if self.timer <= 0 then
 
-        self.bomb.state:change('count-down')
+        self.bomb.state:change('count-down', {
+            toggleVisibleTimer = 1,
+            twinklings = 2
+        })
     end
 end
 
