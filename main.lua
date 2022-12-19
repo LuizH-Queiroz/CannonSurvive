@@ -1,12 +1,28 @@
 -- Including libraries
 Class = require 'libs/class'
 
-require 'src/states/game/BaseState'
-require 'src/states/game/PlayState'
-
+-- src/
 require 'src/Player'
-require 'src/Projectile'
 require 'src/StateMachine'
+
+-- src/game
+require 'src/game/BaseState'
+require 'src/game/PlayState'
+
+-- src/enemies
+require 'src/enemies/Bomber'
+
+require 'src/enemies/follower/Follower'
+require 'src/enemies/follower/FollowerIdleState'
+require 'src/enemies/follower/FollowerFollowState'
+
+-- src/objects
+require 'src/objects/Projectile'
+
+require 'src/objects/bomb/Bomb'
+require 'src/objects/bomb/BombOnHoldState'
+require 'src/objects/bomb/BombCountDownState'
+require 'src/objects/bomb/BombExplosionState'
 
 
 -- Constants
@@ -21,6 +37,7 @@ function love.load()
         resizable = false,
         vsync = true
     })
+    love.window.setTitle('CannonSurvive')
 
     math.randomseed(os.time())
 
