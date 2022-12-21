@@ -160,9 +160,9 @@ function Player:render()
 
     -- Health Bar render
     self.healthBar:render(
-        self.x - self.radius,
-        self.y - self.radius - 25,
-        self.radius * 2,
-        10
+        self.x - self.radius - 5,
+        self.y - self.radius - 22,
+        self.radius * 2 + 10,
+        7
     )
 end

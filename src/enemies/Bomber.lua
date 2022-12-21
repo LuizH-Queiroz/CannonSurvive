@@ -64,6 +64,9 @@ function Bomber:update(dt)
         table.remove(self.bombs, index - removed)
         removed = removed + 1
     end
+
+    -- Health Bar
+    self.healthBar:update(dt)
 end
 
 
@@ -76,6 +79,9 @@ function Bomber:render()
 
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, 1)
     love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
+
+    -- Health Bar
+    self.healthBar:render(self.x - 5, self.y - 10, self.width + 10, 5)
 end
 
 

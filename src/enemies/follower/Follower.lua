@@ -50,6 +50,9 @@ function Follower:update(dt)
 
     self.color.b = self.color.b + 0.06 * dt
     if self.color.b > 1 then self.color.b = 0 end
+
+    -- Health Bar
+    self.healthBar:update(dt)
 end
 
 
@@ -64,6 +67,9 @@ function Follower:render()
     love.graphics.rectangle('fill', -self.width/2, -self.height/2, self.width, self.height)
 
     love.graphics.pop()
+
+    -- Health Bar
+    self.healthBar:render(self.x - 5, self.y - 10, self.width + 10, 5)
 end
 
 
