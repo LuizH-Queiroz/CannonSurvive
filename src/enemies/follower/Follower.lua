@@ -77,5 +77,5 @@ end
 ]]
 function Follower:collides(player)
 
-    return RectCircle_Collision(self, player)
+    return CircleRect_Collision(player, self)
 end

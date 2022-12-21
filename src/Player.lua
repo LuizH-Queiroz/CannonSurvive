@@ -132,6 +132,9 @@ function Player:update(dt)
         table.remove(self.projectiles, index - removed)
         removed = removed + 1
     end
+
+    -- Health Bar
+    self.healthBar:update(dt)
 end
 
 

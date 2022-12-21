@@ -3,7 +3,6 @@ Bomber = Class{}
 
 BOMBER_MAX_HEALTH = 3
 
-BOMBER_SIZE = 40
 BOMBER_SPEED = 120
 
 
@@ -11,6 +10,9 @@ function Bomber:init()
 
     self.x = math.random(0, 1) == 0 and (math.random(-120, -90)) or (SCREEN_WIDTH + math.random(90, 120))
     self.y = math.random(0, 1) == 0 and (math.random(-120, -90)) or (SCREEN_HEIGHT + math.random(90, 120))
+
+    self.width = 40
+    self.height = 40
 
     self.color = {
         r = math.random(),
@@ -46,7 +48,7 @@ function Bomber:update(dt)
     if (self.xVelocity < 0 and self.x < self.destination_X)
     or (self.xVelocity > 0 and self.x > self.destination_X) then
         
-        table.insert(self.bombs, Bomb(self.x + BOMBER_SIZE/2, self.y + BOMBER_SIZE/2))
+        table.insert(self.bombs, Bomb(self.x + self.width/2, self.y + self.height/2))
         setDestination(self)
     end
 
@@ -73,7 +75,7 @@ function Bomber:render()
     end
 
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, 1)
-    love.graphics.rectangle('fill', self.x, self.y, BOMBER_SIZE, BOMBER_SIZE)
+    love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
 end
 
 
@@ -86,13 +88,13 @@ end
 function Bomber:collides(player)
     
     -- Checks collision with bomber
-    if RectCircle_Collision(self, player) then
+    if CircleRect_Collision(player, self) then
         return true
     end
 
     for i, bomb in pairs(self.bombs) do
     
-        if CircleCircle_Collision(bomb, player) then
+        if CircleCircle_Collision(player, bomb) then
             return true
         end
     end
@@ -103,8 +105,8 @@ end
 
 function setDestination(bomber)
 
-    bomber.destination_X = math.random(0, SCREEN_WIDTH - BOMBER_SIZE)
-    bomber.destination_Y = math.random(0, SCREEN_HEIGHT - BOMBER_SIZE)
+    bomber.destination_X = math.random(0, SCREEN_WIDTH - bomber.width)
+    bomber.destination_Y = math.random(0, SCREEN_HEIGHT - bomber.height)
 
     local diff_X = bomber.destination_X - bomber.x
     local diff_Y = bomber.destination_Y - bomber.y

@@ -4,28 +4,29 @@
 
 
 -- Checks collision between a circle and a rectangle
-function RectCircle_Collision(rect, circle)
+-- Based on: https://www.jeffreythompson.org/collision-detection/circle-rect.php
+function CircleRect_Collision(circle, rect)
 
-    local testX, testY = rect.x, rect.y
+    local testX, testY = circle.x, circle.y
 
-    if rect.x < circle.x then
-        testX = circle.x
-    elseif rect.x > circle.x + circle.width then
-        testX = circle.x + circle.width
+    if circle.x < rect.x then
+        testX = rect.x
+    elseif circle.x > rect.x + rect.width then
+        testX = rect.x + rect.width
     end
 
-    if rect.y < circle.y then
-        testY = circle.y
-    elseif rect.y > circle.y + circle.height then
-        testY = circle.y + circle.height
+    if circle.y < rect.y then
+        testY = rect.y
+    elseif circle.y > rect.y + rect.height then
+        testY = rect.y + rect.height
     end
 
 
-    local distX = rect.x - testX
-    local distY = rect.y - testY
+    local distX = circle.x - testX
+    local distY = circle.y - testY
     local distance = math.sqrt(distX*distX + distY*distY)
 
-    return distance <= rect.radius - 2 -- 2 pixels of tolerance
+    return distance <= circle.radius - 2 -- 2 pixels of tolerance
 end
 
 

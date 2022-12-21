@@ -13,6 +13,8 @@ function Bomb:init(x, y)
     self.x = x
     self.y = y
 
+    self.radius = 15
+
     self.color = {
         r = math.random(),
         g = math.random(),
