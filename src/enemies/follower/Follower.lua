@@ -1,6 +1,9 @@
 Follower = Class{}
 
 
+FOLLOWER_MAX_HEALTH = 2
+
+
 function Follower:init()
     
     self.x = math.random(0, 1) == 0 and (math.random(-80, -50)) or (SCREEN_WIDTH + math.random(50, 80))
@@ -23,6 +26,8 @@ function Follower:init()
         ['follow'] = function() return FollowerFollowState(self) end
     }
     self.state:change('idle')
+
+    self.healthBar = HealthBar(FOLLOWER_MAX_HEALTH, FOLLOWER_MAX_HEALTH)
 end
 
 

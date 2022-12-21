@@ -1,6 +1,8 @@
 Bomber = Class{}
 
 
+BOMBER_MAX_HEALTH = 3
+
 BOMBER_SIZE = 40
 BOMBER_SPEED = 120
 
@@ -23,6 +25,8 @@ function Bomber:init()
     setDestination(self)
 
     self.bombs = {}
+
+    self.healthBar = HealthBar(BOMBER_MAX_HEALTH, BOMBER_MAX_HEALTH)
 end
 
 
