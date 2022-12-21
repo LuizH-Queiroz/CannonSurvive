@@ -79,6 +79,24 @@ end
 ---------------------------------------------
 
 
+function Bomber:collides(player)
+    
+    -- Checks collision with bomber
+    if RectCircle_Collision(self, player) then
+        return true
+    end
+
+    for i, bomb in pairs(self.bombs) do
+    
+        if CircleCircle_Collision(bomb, player) then
+            return true
+        end
+    end
+
+    return false
+end
+
+
 function setDestination(bomber)
 
     bomber.destination_X = math.random(0, SCREEN_WIDTH - BOMBER_SIZE)

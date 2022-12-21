@@ -60,3 +60,17 @@ function Follower:render()
 
     love.graphics.pop()
 end
+
+
+-----------------------------
+-----------------------------
+-----------------------------
+
+
+--[[
+    Checks collision between Player and Follower
+]]
+function Follower:collides(player)
+
+    return RectCircle_Collision(self, player)
+end
