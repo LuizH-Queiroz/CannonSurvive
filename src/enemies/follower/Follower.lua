@@ -1,7 +1,7 @@
 Follower = Class{}
 
 
-FOLLOWER_MAX_HEALTH = 2
+FOLLOWER_MAX_HEALTH = 3
 
 
 function Follower:init()
