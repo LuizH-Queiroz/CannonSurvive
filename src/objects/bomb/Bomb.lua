@@ -42,3 +42,14 @@ function Bomb:render()
 
     self.state:render()
 end
+
+
+--------------------------
+--------------------------
+--------------------------
+
+
+function Bomb:collides(player)
+
+    return CircleCircle_Collision(player, self)
+end
