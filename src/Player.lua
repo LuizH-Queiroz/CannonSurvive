@@ -8,7 +8,7 @@ PLAYER_AUTO_HEAL_COOLDOWN = 3
 PLAYER_VERTICAL_ACCELERATION = 350
 PLAYER_HORIZONTAL_ACCELERATION = 250
 
-PLAYER_PROJECTILE_VELOCITY = 750
+PLAYER_PROJECTILE_VELOCITY = 850
 
 NEW_PROJECTILE_TIME = 0.6 -- Time in seconds
 
@@ -112,7 +112,7 @@ function Player:update(dt)
             self.y + 20 * (diff_Y/hypot),
             PLAYER_PROJECTILE_VELOCITY * diff_X/hypot,
             PLAYER_PROJECTILE_VELOCITY * diff_Y/hypot,
-            12
+            8
         ))
 
         self.newProjectileTimer = 0
