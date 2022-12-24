@@ -1,12 +1,12 @@
 Bomber = Class{}
 
 
-BOMBER_MAX_HEALTH = 3
+BOMBER_MAX_HEALTH = 8
 
 BOMBER_SPEED = 120
 
 
-function Bomber:init()
+function Bomber:init(bombsTable)
 
     self.x = math.random(0, 1) == 0 and (math.random(-120, -90)) or (SCREEN_WIDTH + math.random(90, 120))
     self.y = math.random(0, 1) == 0 and (math.random(-120, -90)) or (SCREEN_HEIGHT + math.random(90, 120))
@@ -26,7 +26,7 @@ function Bomber:init()
     -- Bomber next destination
     setDestination(self)
 
-    self.bombs = {}
+    self.bombs = bombsTable
 
     self.healthBar = HealthBar(BOMBER_MAX_HEALTH, BOMBER_MAX_HEALTH)
 end
@@ -37,14 +37,7 @@ function Bomber:update(dt)
     self.x = self.x + self.xVelocity * dt
     self.y = self.y + self.yVelocity * dt
 
-    -- Bombs handling:
-    -- Creation
-    -- Update
-    -- Removal
-
-    local toRemove = {}
-    local removed = 0
-
+    -- Bombs creation
     if (self.xVelocity < 0 and self.x < self.destination_X)
     or (self.xVelocity > 0 and self.x > self.destination_X) then
         
@@ -52,18 +45,6 @@ function Bomber:update(dt)
         setDestination(self)
     end
 
-    for i, bomb in pairs(self.bombs) do
-    
-        bomb:update(dt)
-        if bomb.remove then
-            table.insert(toRemove, i)
-        end
-    end
-
-    for i, index in pairs(toRemove) do
-        table.remove(self.bombs, index - removed)
-        removed = removed + 1
-    end
 
     -- Health Bar
     self.healthBar:update(dt)
@@ -93,19 +74,7 @@ end
 
 function Bomber:collides(player)
     
-    -- Checks collision with bomber
-    if CircleRect_Collision(player, self) then
-        return true
-    end
-
-    for i, bomb in pairs(self.bombs) do
-    
-        if CircleCircle_Collision(player, bomb) then
-            return true
-        end
-    end
-
-    return false
+    return CircleRect_Collision(player, self)
 end
 
 
