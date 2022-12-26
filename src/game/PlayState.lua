@@ -127,7 +127,7 @@ end
 function InstantiateNewEnemy(enemiesTable, objectsTable)
 
     local enemies = {
-        -- function() return Follower() end,
+        function() return Follower() end,
         function() return Bomber(objectsTable) end
     }
 
