@@ -13,14 +13,17 @@ function PlayState:init()
     
         InstantiateNewEnemy(self.enemies, self.objects)
     end
-
-
     self.enemySpawnTime = math.random(1, 3)
+
+
+    self.stopwatch = 0
 end
 
 
 
 function PlayState:update(dt)
+
+    self.stopwatch = self.stopwatch + dt
 
     -- Enemies handling:
     -- -> Spawn/Instantiate
@@ -126,6 +129,14 @@ function PlayState:render()
     end
 
     gPlayer:render()
+
+
+    -- Stopwatch rendering
+    local min = string.format("%d", self.stopwatch / 60)
+    local sec = string.format("%d", self.stopwatch % 60)
+    local ms = string.format("%d", (self.stopwatch - math.floor(self.stopwatch)) * 1000)
+    love.graphics.setColor(0, 0, 0, 1)
+    love.graphics.print(min .. 'min ' .. sec .. 'sec ' .. ms .. 'ms', 10, 10)
 end
 
 
