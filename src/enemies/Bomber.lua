@@ -53,11 +53,6 @@ end
 
 function Bomber:render()
 
-    for i, bomb in pairs(self.bombs) do
-
-        bomb:render()
-    end
-
     love.graphics.setColor(self.color.r, self.color.g, self.color.b, 1)
     love.graphics.rectangle('fill', self.x, self.y, self.width, self.height)
 

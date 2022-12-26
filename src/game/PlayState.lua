@@ -110,6 +110,11 @@ end
 
 function PlayState:render()
 
+    for i, object in pairs(self.objects) do
+    
+        object:render()
+    end
+
     for i, enemy in pairs(self.enemies) do
     
         enemy:render()
