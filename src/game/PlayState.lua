@@ -7,10 +7,15 @@ function PlayState:init()
 
     self.enemies = {}
     self.objects = {} -- Bombs and any other similar objects that may be created in the future
-    InstantiateNewEnemy(self.enemies, self.objects)
+
+    -- Game starts with 3 enemies
+    for i = 1, 3, 1 do
+    
+        InstantiateNewEnemy(self.enemies, self.objects)
+    end
 
 
-    self.enemySpawnTime = math.random(5, 8)
+    self.enemySpawnTime = math.random(1, 3)
 end
 
 
@@ -25,7 +30,7 @@ function PlayState:update(dt)
     if self.enemySpawnTime <= 0 then
         
         InstantiateNewEnemy(self.enemies, self.objects)
-        self.enemySpawnTime = math.random(5, 8)
+        self.enemySpawnTime = math.random(1, 3)
     end
 
     --[[
