@@ -1,10 +1,14 @@
 Player = Class{}
 
 
+PLAYER_MAX_HEALTH = 50
+PLAYER_AUTO_HEAL_AMOUNT = 5 -- Healing per second
+PLAYER_AUTO_HEAL_COOLDOWN = 3
+
 PLAYER_VERTICAL_ACCELERATION = 350
 PLAYER_HORIZONTAL_ACCELERATION = 250
 
-PLAYER_PROJECTILE_VELOCITY = 750
+PLAYER_PROJECTILE_VELOCITY = 850
 
 NEW_PROJECTILE_TIME = 0.6 -- Time in seconds
 
@@ -21,6 +25,8 @@ function Player:init()
 
     self.projectiles = {}
     self.newProjectileTimer = 0
+
+    self.healthBar = HealthBar(PLAYER_MAX_HEALTH, PLAYER_MAX_HEALTH, PLAYER_AUTO_HEAL_AMOUNT, PLAYER_AUTO_HEAL_COOLDOWN)
 end
 
 
@@ -106,7 +112,7 @@ function Player:update(dt)
             self.y + 20 * (diff_Y/hypot),
             PLAYER_PROJECTILE_VELOCITY * diff_X/hypot,
             PLAYER_PROJECTILE_VELOCITY * diff_Y/hypot,
-            12
+            8
         ))
 
         self.newProjectileTimer = 0
@@ -126,6 +132,9 @@ function Player:update(dt)
         table.remove(self.projectiles, index - removed)
         removed = removed + 1
     end
+
+    -- Health Bar
+    self.healthBar:update(dt)
 end
 
 
@@ -147,32 +156,13 @@ function Player:render()
 
     love.graphics.setColor(0, 1, 1, 1)
     love.graphics.circle('fill', self.x, self.y, self.radius)
-end
 
 
--- Check collision between Player and an enemy (a circle and a rectangle)
--- Based on: https://www.jeffreythompson.org/collision-detection/circle-rect.php
-function Player:collides(enemy)
-
-    local testX, testY = self.x, self.y -- enemy (rectangle) closest point, actually initialized
-                                        -- with the Player position
-
-    if self.x < enemy.x then
-        testX = enemy.x
-    elseif self.x > enemy.x + enemy.width then
-        testX = enemy.x + enemy.width
-    end
-
-    if self.y < enemy.y then
-        testY = enemy.y
-    elseif self.y > enemy.y + enemy.height then
-        testY = enemy.y + enemy.height
-    end
-
-
-    local distX = self.x - testX
-    local distY = self.y - testY
-    local distance = math.sqrt(distX*distX + distY*distY)
-
-    return distance <= self.radius - 2
+    -- Health Bar render
+    self.healthBar:render(
+        self.x - self.radius - 5,
+        self.y - self.radius - 22,
+        self.radius * 2 + 10,
+        7
+    )
 end

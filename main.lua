@@ -2,6 +2,8 @@
 Class = require 'libs/class'
 
 -- src/
+require 'src/Utility'
+require 'src/HealthBar'
 require 'src/Player'
 require 'src/StateMachine'
 

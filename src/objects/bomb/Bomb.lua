@@ -13,6 +13,8 @@ function Bomb:init(x, y)
     self.x = x
     self.y = y
 
+    self.radius = 15
+
     self.color = {
         r = math.random(),
         g = math.random(),
@@ -39,4 +41,15 @@ end
 function Bomb:render()
 
     self.state:render()
+end
+
+
+--------------------------
+--------------------------
+--------------------------
+
+
+function Bomb:collides(player)
+
+    return CircleCircle_Collision(player, self)
 end

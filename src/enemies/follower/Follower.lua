@@ -1,6 +1,9 @@
 Follower = Class{}
 
 
+FOLLOWER_MAX_HEALTH = 3
+
+
 function Follower:init()
     
     self.x = math.random(0, 1) == 0 and (math.random(-80, -50)) or (SCREEN_WIDTH + math.random(50, 80))
@@ -23,6 +26,8 @@ function Follower:init()
         ['follow'] = function() return FollowerFollowState(self) end
     }
     self.state:change('idle')
+
+    self.healthBar = HealthBar(FOLLOWER_MAX_HEALTH, FOLLOWER_MAX_HEALTH)
 end
 
 
@@ -45,6 +50,9 @@ function Follower:update(dt)
 
     self.color.b = self.color.b + 0.06 * dt
     if self.color.b > 1 then self.color.b = 0 end
+
+    -- Health Bar
+    self.healthBar:update(dt)
 end
 
 
@@ -59,4 +67,21 @@ function Follower:render()
     love.graphics.rectangle('fill', -self.width/2, -self.height/2, self.width, self.height)
 
     love.graphics.pop()
+
+    -- Health Bar
+    self.healthBar:render(self.x - 5, self.y - 10, self.width + 10, 5)
+end
+
+
+-----------------------------
+-----------------------------
+-----------------------------
+
+
+--[[
+    Checks collision between Player and Follower
+]]
+function Follower:collides(player)
+
+    return CircleRect_Collision(player, self)
 end

@@ -5,13 +5,13 @@ Projectile = Class{}
 REMOVE_DISTANCE = 25
 
 
-function Projectile:init(x, y, xVelocity, yVelocity, size)
+function Projectile:init(x, y, xVelocity, yVelocity, radius)
 
     self.x = x
     self.y = y
     self.xVelocity = xVelocity
     self.yVelocity = yVelocity
-    self.size = size
+    self.radius = radius
 
     self.remove = false
 end
@@ -33,6 +33,5 @@ end
 function Projectile:render()
 
     love.graphics.setColor(0, 0, 0, 1)
-    love.graphics.setPointSize(self.size)
-    love.graphics.points(self.x, self.y)
+    love.graphics.circle('fill', self.x, self.y, self.radius)
 end
