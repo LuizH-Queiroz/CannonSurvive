@@ -10,6 +10,7 @@ require 'src/StateMachine'
 -- src/game
 require 'src/game/BaseState'
 require 'src/game/PlayState'
+require 'src/game/EndState'
 
 -- src/enemies
 require 'src/enemies/Bomber'
@@ -45,7 +46,8 @@ function love.load()
 
 
     gStateMachine = StateMachine {
-        ['play'] = function() return PlayState() end
+        ['play'] = function() return PlayState() end,
+        ['end'] = function() return EndState() end
     }
     gStateMachine:change('play')
 

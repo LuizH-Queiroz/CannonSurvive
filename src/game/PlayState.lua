@@ -60,6 +60,13 @@ function PlayState:update(dt)
         if enemy:collides(gPlayer) then
             
             gPlayer.healthBar:damage(1)
+            if gPlayer.healthBar.currentHealth == 0 then
+                
+                gStateMachine:change('end', {
+                        survivalTime = self.stopwatch
+                    }
+                )
+            end
         end
 
         ----------------
@@ -96,6 +103,13 @@ function PlayState:update(dt)
         if object:collides(gPlayer) then
             
             gPlayer.healthBar:damage(1)
+            if gPlayer.healthBar.currentHealth == 0 then
+                
+                gStateMachine:change('end', {
+                        survivalTime = self.stopwatch
+                    }
+                )
+            end
         end
 
         if object.remove then
